@@ -1,4 +1,5 @@
 import pg from 'pg';
+import { RESTORE_ROLE_NAMES } from './runtime-role-names.mjs';
 
 const { Client } = pg;
 const databaseUrl = process.env.DATABASE_URL;
@@ -19,16 +20,16 @@ const client = new Client({ connectionString: databaseUrl });
 
 try {
   await client.connect();
-  const roleNames = ['sco_runtime', 'sco_internal_executor', 'sco_verify_system_executor', 'sco_purpose_authority'];
+  const roleNames = RESTORE_ROLE_NAMES;
   let successMessage;
   await client.query('BEGIN');
   try {
     const existing = await client.query('SELECT rolname FROM pg_roles WHERE rolname = ANY($1::text[])', [roleNames]);
     if (mode === 'prepare-restore') {
       if (existing.rowCount !== 0) throw new Error('RESTORE_RUNTIME_ROLE_ALREADY_EXISTS');
-      await client.query('CREATE ROLE sco_runtime NOLOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT NOBYPASSRLS');
-      await client.query('CREATE ROLE sco_internal_executor NOLOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT NOBYPASSRLS');
-      await client.query('CREATE ROLE sco_verify_system_executor NOLOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT NOBYPASSRLS');
+      for (const roleName of roleNames) {
+        await client.query(`CREATE ROLE "${roleName}" NOLOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT NOBYPASSRLS`);
+      }
       successMessage = 'Prepared non-login runtime database roles for restore.';
     } else {
       await client.query(`DO $$ BEGIN
