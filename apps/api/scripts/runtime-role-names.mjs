@@ -1,0 +1,17 @@
+export const RESTORE_ROLE_NAMES = Object.freeze([
+  'sco_runtime',
+  'sco_internal_executor',
+  'sco_verify_system_executor',
+  'sco_purpose_authority',
+  'sco_internal_gateway_owner',
+  'sco_verify_gateway_owner',
+  'sco_verify_partner_read_owner',
+  'sco_disclosure_gateway_owner',
+  'sco_document_policy_gateway_owner',
+  'sco_procurement_intelligence_gateway_owner',
+  'sco_service_access_gateway_owner',
+  'sco_workspace_gateway_owner',
+  'sco_partner_admission_gateway_owner',
+  'sco_candidate_integrity_owner',
+  'sco_collaboration_gateway_owner',
+]);
