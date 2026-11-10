@@ -160,17 +160,17 @@ describe('H6 internal partnership read model', () => {
 
   async function cleanup() {
     const partnerships = [partnershipId, queueCompanionId, supplierPartnershipId, ...terminalIds.values()]
-      .filter((value): value is string => Boolean(value));
+      .filter(Boolean);
     const qualifications = [qualificationId, companionQualification]
-      .filter((value): value is string => Boolean(value));
+      .filter(Boolean);
     const companies = [scoCompany, partnerCompany, queueCompanionCompany, ...terminalCompanies.values()]
-      .filter((value): value is string => Boolean(value));
+      .filter(Boolean);
     const users = [manager, noCapabilityActor, partnerUser]
-      .filter((value): value is string => Boolean(value));
+      .filter(Boolean);
     const memberships = [managerMembership, noCapabilityMembership, partnerMembership]
-      .filter((value): value is string => Boolean(value));
+      .filter(Boolean);
     const roles = [managerRole, partnerRole]
-      .filter((value): value is string => Boolean(value));
+      .filter(Boolean);
     const policyIds = (await owner.query('SELECT id FROM partner_agreement_policy_versions WHERE created_by=$1', [manager])).rows.map((row) => row.id);
 
     if (policyIds.length > 0) {
