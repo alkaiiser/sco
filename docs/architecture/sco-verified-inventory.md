@@ -60,9 +60,9 @@ PR #3 repaired these gates and was merged after CI run 37 passed. The legacy rep
 - Search evidence showed historical Odoo and meeting-system references in documentation, but no independently verified Odoo product repository or Mobile/Field product code in the accessible GitHub inventory.
 - No customer-extension repository or customer-specific deployment boundary was verified.
 
-## Owner-provided business classification
+## Owner-approved business classification
 
-The owner has stated that the former procurement platform has been frozen for one year. This classification supersedes older repository wording for architecture planning:
+The owner has approved that the former procurement platform has been frozen for one year. This classification supersedes older repository wording for architecture planning:
 
 - it is legacy procurement;
 - it is not SCO Platform;
