@@ -92,6 +92,22 @@ For each verified integration, record:
 | Release compatibility | Supported versions and deprecation window |
 | Recovery | Backup owner, restore procedure, RPO/RTO evidence |
 
+## Verified deployment and integration references inside legacy repository
+
+These references are documented in the legacy repository and are not proof that the external systems are currently reachable or approved for use:
+
+- The repository documents `staging.sco.sa` and `operations.staging.sco.sa` as staging edge hostnames.
+- The documented staging edge routes traffic to API, Partner, and Operations listeners on loopback ports 3101, 3102, and 3103.
+- The edge contract keeps PostgreSQL, object storage, health endpoints, metrics, Docker, and internal routes private.
+- The release design uses GHCR images identified by commit SHA and requires deployment by immutable digest.
+- The release workflow keeps production deployment disabled and does not grant GitHub Actions a deployment SSH key.
+- Runtime document storage is designed around a private S3-compatible bucket; the recovery runbook requires fresh credentials and a clean target for restore.
+- The repository contains owner-laptop deployment scripts and staging deployment contracts, but no read-only evidence was obtained from the actual host, DNS provider, registry, or backup destination.
+
+## Documentation consistency gap
+
+Some legacy files still use the old label `SCO Platform` or describe the procurement project as a B2B procurement platform. The approved architecture classification in PR #4 is authoritative for the portfolio. A future documentation-cleanup PR should update legacy labels without changing application behavior or historical records.
+
 ## Phase 1 exit criteria
 
 Phase 1 is complete when:
