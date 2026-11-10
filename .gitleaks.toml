@@ -1,0 +1,7 @@
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Verified non-secret idempotency-key fixture in historical test commit"
+commits = ["429dab42c82c1784103916153c0f0f485c9cff5c"]
+paths = ["^apps/api/test/integration/engineering-workspace-f\\.integration\\.test\\.ts$"]
