@@ -1,75 +1,142 @@
-# SCO Technologies Target Roadmap
+# SCO Technologies Architecture and Delivery Roadmap
 
-## Status
+## Executive position
 
-This document is a proposed target structure for the SCO technology portfolio. It is not an inventory of confirmed repositories, deployed systems, or existing products.
+**SCO — Business Development & Systems Engineering** is a technology and systems engineering company developing multiple independent but integrated products.
 
-The current `alkaiiser/sco` repository remains the active SCO B2B Procurement Platform. No repository is renamed, transferred, created, or split by this document.
+The former SCO B2B Procurement Platform is a **legacy project frozen for one year**. It is not SCO's main platform, architectural foundation, or starting point for future products. Its existing code and history must be preserved. No deletion, rename, migration, split, or production action is authorized by this document.
 
-## Proposed portfolio boundaries
+The current `alkaiiser/sco` repository is therefore classified as **SCO Legacy Procurement**. It may continue to receive safety, maintenance, and preservation work, but it must not be used as evidence that Odoo, Field, Mobile, Connect, Digital Branch, or Website & Store already exist in this repository.
 
-| Proposed boundary | Intended responsibility | Current status |
+## Portfolio boundaries
+
+These are logical product boundaries. They are not approved repository names.
+
+| Product boundary | Intended responsibility | Classification |
 | --- | --- | --- |
-| `sco-platform` | Shared platform capabilities, infrastructure standards, delivery controls, and deployment contracts | Current `alkaiiser/sco` is the platform starting point |
-| `sco-odoo-core` | Shared Odoo modules, integrations, and technical conventions | Proposed; requires an Odoo inventory |
-| `sco-odoo-sectors` | Sector-specific Odoo packages kept separate from shared core | Proposed; requires domain ownership |
-| `sco-field` | Field sales and distribution product boundaries | Proposed; requires product and deployment inventory |
-| `sco-mobile` | SCO mobile applications and mobile-specific services | Proposed; requires application inventory |
-| `sco-connect` | Digital branch, integration, and external communication contracts | Proposed; requires interface inventory |
-| `sco-customer-extensions` | Isolated customer customizations with per-customer access boundaries | Proposed; requires tenancy and ownership policy |
+| **SCO Platform** | Shared technical standards, reusable infrastructure, security, CI/CD, identity, observability, and integration contracts | Proposed shared foundation; not identified as the current `alkaiiser/sco` repository |
+| **SCO Odoo** | Main ERP and business-operations ecosystem based on Odoo Community and open-source extensions | Proposed product ecosystem; codebase not verified in accessible GitHub inventory |
+| **SCO Odoo Sectors** | Specialized sector packages built on the shared Odoo ecosystem | Proposed product boundary; requires sector ownership and compatibility policy |
+| **SCO Field — By Odoo** | Independent field sales and distribution product integrated with authorized SCO Odoo environments | Proposed independent product |
+| **SCO Mobile** | Independent iOS/Android application platform connected to authorized Odoo environments | Proposed independent product |
+| **SCO Connect** | Communication, meetings, and customer-interaction infrastructure | Proposed independent product/integration boundary |
+| **SCO Digital Branch** | Independent digital-branch product integrated with SCO Connect and Odoo | Proposed independent product |
+| **SCO Website & Store** | Corporate website, service catalog, checkout, CRM integration, and customer acquisition | Proposed independent product |
+| **SCO Customer Extensions** | Customer-specific implementations and extensions with strict per-customer isolation | Proposed delivery boundary |
+| **SCO Legacy Procurement** | Frozen B2B procurement project retained separately with preserved history | Confirmed current GitHub asset: `alkaiiser/sco` |
 
-## Principles
+## Architecture model
 
-1. `sco-platform` is the system of record for shared platform contracts, security gates, and delivery standards.
-2. Odoo, Field, Mobile, Connect, and customer extensions must not be inferred from the current `sco` repository without verified evidence.
-3. Customer extensions must remain isolated by customer, data boundary, credentials, and deployment authorization.
-4. Shared code belongs in a shared boundary only when ownership, release responsibility, and compatibility policy are explicit.
-5. Production systems, live credentials, DNS, and existing deployments are outside the scope of repository restructuring.
-6. A proposed repository name is not authorization to create or move a repository.
+`
+                         SCO Platform
+       standards · identity · security · CI/CD · contracts
+            /       |        |         |          \
+         Odoo   Connect   Website    Mobile     Field
+          |        |         |          |          |
+   Odoo Sectors  Digital Branch   CRM/Store   authorized Odoo
+          |
+  Customer Extensions (isolated per customer)
 
-## Phased path
+  Legacy Procurement: preserved separately; not a platform dependency
+`
 
-### Phase 0: Confirm the current boundary
+The arrows describe intended integration contracts, not current runtime connections. Every connection requires an owner, interface contract, authentication model, data classification, and recovery responsibility.
 
-- Keep `alkaiiser/sco` focused on the B2B Procurement Platform.
-- Keep the repository security gates, recovery drills, and dependency maintenance green.
-- Record verified ownership and runtime boundaries before any portfolio change.
+## Monorepo versus multirepo decision
 
-### Phase 1: Inventory
+### Current verified state
 
-- Build a read-only inventory of confirmed Odoo, Field, Mobile, Connect, hosting, and backup assets.
-- Identify owners, source repositories, environments, data classifications, integrations, and recovery responsibilities.
-- Record unknowns explicitly; do not fill gaps with assumptions.
+`alkaiiser/sco` is a pnpm workspace monorepo containing:
 
-### Phase 2: Define contracts
+- `apps/api`: NestJS/Fastify API with Prisma/PostgreSQL integration.
+- `apps/partner-web`: Next.js partner web application.
+- `apps/operations-web`: Next.js operations web application.
+- `packages/config` and `packages/contracts`: shared workspace packages.
+- Dockerfiles for the three applications.
+- CI for static checks, migrations, tests, security scanning, recovery, and container builds.
 
-- Define API, event, identity, tenancy, audit, observability, and deployment contracts.
-- Decide which contracts are platform-owned and which are product-owned.
-- Define the approval gates for customer-specific code and production access.
+### Recommendation
 
-### Phase 3: Select repository boundaries
+Do not split the legacy repository as part of this architecture exercise.
 
-- Compare the inventory with the proposed boundaries.
-- Create or split repositories only after owners approve the boundary, history strategy, access model, CI policy, and rollback plan.
-- Preserve `alkaiiser/sco` history and production safety during any future migration.
+Use a **platform monorepo** only for code that has all of these properties:
 
-### Phase 4: Incremental delivery
+- shared ownership and release cadence;
+- meaningful compile-time or contract-level coupling;
+- coordinated security and compatibility policy;
+- no customer-specific data or deployment credentials.
 
-- Move one bounded capability at a time.
-- Require independent CI, security scanning, ownership metadata, and recovery evidence for each new boundary.
-- Do not merge or deploy a split solely because a target repository name exists.
+Use **independent repositories** for Odoo, Field, Mobile, Connect, Digital Branch, Website & Store, and customer extensions when they have independent release cadence, runtime, ownership, access controls, or data boundaries.
 
-## Approval gates
+Use a separate repository for Odoo sector packages only when sector modules can be versioned and tested against an explicitly supported Odoo compatibility matrix.
 
-Before creating or splitting any repository, obtain explicit owner approval for:
+The final split decision requires the Phase 1 inventory and Phase 2 contract review in the companion documents. Repository names must not be created merely because they appear in this proposal.
 
-- the confirmed scope and owning team;
-- repository visibility and collaborator access;
-- customer and production data boundaries;
-- secrets and credential rotation plan;
-- CI, security, backup, and recovery requirements;
-- migration, rollback, and decommissioning plans.
+## Dependency and integration principles
 
-## Current decision
+1. Odoo is the business-system authority for ERP-owned workflows once its runtime and ownership are verified.
+2. Mobile and Field clients must use versioned, least-privilege APIs; they must not connect directly to arbitrary customer databases.
+3. Connect and Digital Branch must expose explicit integration contracts rather than sharing database tables with unrelated products.
+4. Website & Store must isolate public acquisition, checkout, and CRM concerns from internal ERP credentials.
+5. Customer Extensions must be isolated by repository or explicit package boundary, customer identity, data, credentials, deployment authorization, and audit trail.
+6. Shared libraries must be dependency-light, documented, semver-versioned, and free of customer data.
+7. The legacy procurement application must remain outside the new platform dependency graph unless an owner approves a specific integration contract.
 
-Adopt this structure as a planning model only. Continue development in `alkaiiser/sco` until the Phase 1 inventory and Phase 2 contracts are reviewed and approved. Leave PR #2 deferred as previously agreed.
+## Phased implementation
+
+### Phase 0 — Preserve and correct the record
+
+- Keep `alkaiiser/sco` unchanged in role: a frozen legacy procurement asset.
+- Keep its security gates, recovery evidence, and dependency maintenance healthy.
+- Update repository documentation so it no longer calls the legacy project the SCO platform.
+- Do not rename, migrate, split, archive, or delete it.
+
+### Phase 1 — Read-only inventory
+
+- Identify confirmed repositories, local codebases, Odoo instances, mobile projects, hosting, CI/CD, integrations, backups, and owners.
+- Record evidence, last-known activity, runtime, data classification, and recovery path.
+- Mark unknowns explicitly and avoid inferring products from names or documents.
+
+### Phase 2 — Contract design
+
+- Define identity, tenancy, API, events, integration, audit, observability, deployment, and recovery contracts.
+- Define Odoo authorization and environment boundaries.
+- Define the customer-isolation policy and approval gates.
+
+### Phase 3 — Organization and repository foundation
+
+- Create the SCO GitHub organization only after owner approval.
+- Establish teams, least-privilege roles, repository naming, branch protection, CODEOWNERS, environments, and reusable workflows.
+- Create repositories only after scope, ownership, history strategy, access model, and rollback plan are approved.
+
+### Phase 4 — Incremental product delivery
+
+- Start with the highest-confidence independent product boundary.
+- Require independent CI, security scanning, release evidence, and recovery evidence.
+- Integrate through versioned contracts; do not share production databases by convenience.
+
+### Phase 5 — Controlled migration
+
+- Migrate one bounded capability at a time.
+- Preserve source history and provide a rollback path.
+- Freeze old paths before decommissioning any duplicate.
+- Decommission only with explicit owner approval and verified backup/recovery evidence.
+
+## Approval checklist
+
+Before the next execution phase, the owner must approve:
+
+- SCO organization creation or use;
+- product owner and technical owner for every boundary;
+- repository visibility and team access;
+- Odoo version and environment ownership;
+- customer-isolation model;
+- secrets and environment policy;
+- CI, security, release, and recovery minimums;
+- migration, rollback, and decommissioning plans;
+- whether any existing asset may be renamed, moved, split, archived, or retired.
+
+See:
+
+- [Verified inventory and evidence](./sco-verified-inventory.md)
+- [GitHub governance and engineering standards](./sco-github-governance.md)
