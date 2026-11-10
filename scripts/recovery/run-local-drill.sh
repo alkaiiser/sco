@@ -19,6 +19,7 @@ api_port="${SCO_DRILL_API_PORT:-55443}"
 owner_password="$(openssl rand -hex 24)"
 runtime_password="$(openssl rand -hex 24)"
 internal_password="$(openssl rand -hex 24)"
+purpose_authority_password="$(openssl rand -hex 24)"
 s3_access_key="$(openssl rand -hex 16)"
 s3_secret_key="$(openssl rand -hex 32)"
 session_secret="$(openssl rand -hex 32)"
@@ -88,8 +89,10 @@ export SCO_RESTORE_DATABASE_URL="$SCO_BACKUP_DATABASE_URL"
 export DATABASE_URL="$SCO_BACKUP_DATABASE_URL"
 export RUNTIME_DATABASE_PASSWORD="$runtime_password"
 export SCO_INTERNAL_DATABASE_PASSWORD="$internal_password"
+export PURPOSE_AUTHORITY_DATABASE_PASSWORD="$purpose_authority_password"
 export RUNTIME_DATABASE_URL="postgresql://sco_runtime:$runtime_password@127.0.0.1:$postgres_port/$database_name"
 export SCO_INTERNAL_DATABASE_URL="postgresql://sco_internal_executor:$internal_password@127.0.0.1:$postgres_port/$database_name"
+export PURPOSE_AUTHORITY_DATABASE_URL="postgresql://sco_purpose_authority:$purpose_authority_password@127.0.0.1:$postgres_port/$database_name"
 export SCO_BACKUP_S3_BUCKET="$bucket"
 export SCO_BACKUP_S3_REGION='us-east-1'
 export SCO_BACKUP_S3_ENDPOINT="http://127.0.0.1:$s3_port"
@@ -185,9 +188,14 @@ export OPERATIONS_WEB_ORIGIN='http://127.0.0.1:3103'
 export NODE_ENV='development'
 corepack pnpm --filter @sco/api exec tsx src/main.ts > "$work_directory/api.log" 2>&1 &
 api_pid="$!"
+report_api_failure() {
+  if [[ -f "$work_directory/api.log" ]]; then
+    sed -E 's/(postgresql:\/\/[^:]+:)[^@]+(@)/\1<REDACTED>\2/g; s/((PASSWORD|TOKEN|SECRET|KEY)[=:])[^[:space:]]+/\1<REDACTED>/Ig' "$work_directory/api.log" | tail -n 80 >&2
+  fi
+}
 for _ in {1..60}; do
   if curl --fail --silent "http://127.0.0.1:$api_port/health/live" >/dev/null 2>&1 && curl --fail --silent "http://127.0.0.1:$api_port/health/ready" >/dev/null 2>&1; then break; fi
-  if ! kill -0 "$api_pid" 2>/dev/null; then fail_recovery 'RESTORED_API_EXITED'; fi
+  if ! kill -0 "$api_pid" 2>/dev/null; then report_api_failure; fail_recovery 'RESTORED_API_EXITED'; fi
   sleep 1
 done
 curl --fail --silent "http://127.0.0.1:$api_port/health/live" | jq -e '.status == "ok"' >/dev/null

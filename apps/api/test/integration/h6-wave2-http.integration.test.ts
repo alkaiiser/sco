@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { randomBytes, randomUUID } from 'node:crypto';
 import { Client, Pool, type PoolClient } from 'pg';
+import type { InjectOptions } from 'fastify';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { Test } from '@nestjs/testing';
 import { FastifyAdapter, type NestFastifyApplication } from '@nestjs/platform-fastify';
@@ -65,7 +66,7 @@ describe('H6 Wave 2 internal partnership HTTP contract', () => {
     return Array.isArray(cookie) ? cookie[0] : cookie as string;
   }
 
-  async function call(method: 'GET' | 'POST', url: string, cookie?: string, payload?: unknown) {
+  async function call(method: 'GET' | 'POST', url: string, cookie?: string, payload?: InjectOptions['payload']) {
     return app.inject({ method, url, headers: cookie ? { cookie } : {}, payload });
   }
 
