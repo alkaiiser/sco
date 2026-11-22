@@ -1,0 +1,10 @@
+module	sco_hvac_starter_component_bridge	19.0.1.1.1	installed
+requirement_rows	0
+model_fields	23
+module_views	7
+readonly_project_views	2
+acl	purchase requirement purchase read	purchase.group_purchase_user	t	f	f	f
+acl	purchase requirement sales editor	sales_team.group_sale_salesman	t	t	t	t
+acl	purchase requirement administrator	base.group_system	t	t	t	t
+company_rules	1
+full_kit_purchase_catalog	0

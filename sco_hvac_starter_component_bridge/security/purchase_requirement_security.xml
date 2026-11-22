@@ -1,0 +1,8 @@
+<odoo>
+    <record id="rule_purchase_requirement_company" model="ir.rule">
+        <field name="name">Purchase requirements: active companies</field>
+        <field name="model_id" ref="model_sco_hvac_purchase_requirement"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+</odoo>

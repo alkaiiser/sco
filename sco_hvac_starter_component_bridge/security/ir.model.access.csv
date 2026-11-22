@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_component_bridge_user,component bridge user,model_sco_hvac_product_component_bridge,base.group_user,1,0,0,0
+access_component_bridge_line_user,component bridge line user,model_sco_hvac_product_component_bridge_line,base.group_user,1,0,0,0
+access_component_boq_line_user,component requirement user,model_sco_hvac_boq_line,base.group_user,1,0,0,0
+access_component_purchase_line_user,component purchase link user,model_purchase_order_line,base.group_user,1,1,1,0
+access_component_bridge_admin,component bridge admin,model_sco_hvac_product_component_bridge,base.group_system,1,1,1,1
+access_component_bridge_line_admin,component bridge line admin,model_sco_hvac_product_component_bridge_line,base.group_system,1,1,1,1
+access_purchase_requirement_internal,purchase requirement purchase read,model_sco_hvac_purchase_requirement,purchase.group_purchase_user,1,0,0,0
+access_purchase_requirement_sales,purchase requirement sales editor,model_sco_hvac_purchase_requirement,sales_team.group_sale_salesman,1,1,1,1
+access_purchase_requirement_admin,purchase requirement administrator,model_sco_hvac_purchase_requirement,base.group_system,1,1,1,1

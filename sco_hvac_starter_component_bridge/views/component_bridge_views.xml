@@ -1,0 +1,61 @@
+<odoo>
+    <record id="view_sale_order_component_release" model="ir.ui.view">
+        <field name="name">sale.order.component.requirement.release</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_release_component_requirements" type="object"
+                        string="Release Component Requirements" invisible="state not in ('sale', 'done')"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_component_bridge_list" model="ir.ui.view">
+        <field name="name">sco.hvac.product.component.bridge.list</field>
+        <field name="model">sco.hvac.product.component.bridge</field>
+        <field name="arch" type="xml"><list string="HVAC Component Bridges">
+            <field name="name"/><field name="sales_product_id"/><field name="qualification_id"/>
+            <field name="revision"/><field name="state" widget="badge"/>
+        </list></field>
+    </record>
+    <record id="view_component_bridge_form" model="ir.ui.view">
+        <field name="name">sco.hvac.product.component.bridge.form</field>
+        <field name="model">sco.hvac.product.component.bridge</field>
+        <field name="arch" type="xml"><form string="HVAC Component Bridge">
+            <header>
+                <button name="action_submit" type="object" string="Submit" class="btn-primary" invisible="state != 'draft'"/>
+                <button name="action_approve" type="object" string="Approve" class="btn-primary" invisible="state != 'submitted'" groups="base.group_system"/>
+                <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved"/>
+            </header>
+            <sheet><group><field name="name"/><field name="sales_product_id"/><field name="qualification_id"/>
+                <field name="revision"/><field name="source_ref"/><field name="source_version"/><field name="source_attachment_id"/>
+            </group><notebook><page string="Components"><field name="line_ids" readonly="state != 'draft'"><list>
+                <field name="component_role"/><field name="component_product_id"/><field name="component_oem_spec_id"/>
+                <field name="quantity_per_sale"/><field name="uom_id"/><field name="compatibility_ref"/>
+            </list></field></page></notebook></sheet>
+        </form></field>
+    </record>
+    <record id="view_component_requirement_list" model="ir.ui.view">
+        <field name="name">sco.hvac.component.requirement.list</field>
+        <field name="model">sco.hvac.boq.line</field>
+        <field name="arch" type="xml"><list string="Component Requirements">
+            <field name="product_id" string="Component"/><field name="quantity" string="Required"/>
+            <field name="uom_id"/><field name="purchased_qty" string="Purchased"/>
+            <field name="received_qty" string="Received"/><field name="remaining_to_purchase" string="Remaining to Purchase"/>
+            <field name="remaining_to_receive" string="Remaining to Receive"/><field name="boq_id"/>
+            <button name="action_open_purchase_orders" type="object" string="Purchases" icon="fa-shopping-cart"/>
+        </list></field>
+    </record>
+    <record id="action_component_bridge" model="ir.actions.act_window">
+        <field name="name">HVAC Component Bridges</field><field name="res_model">sco.hvac.product.component.bridge</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_component_requirement" model="ir.actions.act_window">
+        <field name="name">Component Requirements</field><field name="res_model">sco.hvac.boq.line</field>
+        <field name="view_mode">list</field><field name="view_id" ref="view_component_requirement_list"/>
+        <field name="domain">[('component_bridge_line_id', '!=', False)]</field>
+    </record>
+    <menuitem id="menu_component_bridge_root" name="HVAC Components" parent="sco_hvac_starter_boq.menu_boq" sequence="31" groups="sales_team.group_sale_salesman,purchase.group_purchase_user,base.group_system"/>
+    <menuitem id="menu_component_bridge" name="Approved Bridges" parent="menu_component_bridge_root" action="action_component_bridge"/>
+    <menuitem id="menu_component_requirement" name="Component Requirements" parent="menu_component_bridge_root" action="action_component_requirement"/>
+</odoo>
