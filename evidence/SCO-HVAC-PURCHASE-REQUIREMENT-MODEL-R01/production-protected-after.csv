@@ -1,0 +1,15 @@
+Output format is unaligned.
+Field separator is ",".
+product_template,1531,889f74bf6ff1e3491d52d07293ecda92
+product_product,1531,f8922cbe1c95b17bf60163c10b388b14
+uom_uom,33,7b7700bf991bd8f144d1dc0cd2ea10f5
+product_supplierinfo,21,837014626684c70b50bd3961f76a97bf
+purchase_order,6
+purchase_order_line,42
+stock_picking,12
+stock_move,128
+stock_quant,69
+account_move,14
+account_move_line,235
+mrp_bom_table,0
+purchase_requirement_table,1

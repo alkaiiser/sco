@@ -1,0 +1,184 @@
+<odoo>
+    <record id="view_purchase_requirement_search" model="ir.ui.view">
+        <field name="name">sco.hvac.purchase.requirement.search</field>
+        <field name="model">sco.hvac.purchase.requirement</field>
+        <field name="arch" type="xml">
+            <search string="احتياجات الشراء">
+                <field name="purchase_product_id"/>
+                <field name="project_id"/>
+                <field name="boq_id"/>
+                <field name="technical_specification"/>
+                <filter name="material" string="مواد" domain="[('requirement_kind', '=', 'material')]"/>
+                <filter name="service" string="خدمات مشتراة" domain="[('requirement_kind', '=', 'service')]"/>
+                <filter name="draft_boq" string="BOQ مسودة" domain="[('boq_state', '=', 'draft')]"/>
+                <filter name="approved_boq" string="BOQ معتمد" domain="[('boq_state', '=', 'approved')]"/>
+                <separator/>
+                <filter name="group_by_project" string="المشروع" context="{'group_by': 'project_id'}"/>
+                <filter name="group_by_purchase_product" string="الصنف الشرائي" context="{'group_by': 'purchase_product_id'}"/>
+                <filter name="group_by_kind" string="النوع" context="{'group_by': 'requirement_kind'}"/>
+                <filter name="group_by_specification" string="المواصفة" context="{'group_by': 'technical_specification'}"/>
+                <filter name="group_by_uom" string="الوحدة" context="{'group_by': 'uom_id'}"/>
+                <filter name="group_by_boq_state" string="حالة BOQ" context="{'group_by': 'boq_state'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_project_purchase_requirement_list" model="ir.ui.view">
+        <field name="name">sco.hvac.purchase.requirement.project.list.readonly</field>
+        <field name="model">sco.hvac.purchase.requirement</field>
+        <field name="arch" type="xml">
+            <list string="احتياجات شراء المشروع" create="0" edit="0" delete="0" duplicate="0">
+                <field name="boq_id"/>
+                <field name="boq_line_id"/>
+                <field name="sales_product_id" string="المنتج البيعي"/>
+                <field name="purchase_product_id" string="الصنف الشرائي"/>
+                <field name="requirement_kind" string="النوع"/>
+                <field name="quantity" string="الكمية" sum="إجمالي الكمية"/>
+                <field name="uom_id" string="الوحدة"/>
+                <field name="technical_specification" string="المواصفة الفنية"/>
+                <field name="quantity_source" string="مصدر الكمية"/>
+                <field name="source_reference" string="مرجع المصدر"/>
+                <field name="boq_state" string="حالة BOQ" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_project_purchase_requirement_form" model="ir.ui.view">
+        <field name="name">sco.hvac.purchase.requirement.project.form.readonly</field>
+        <field name="model">sco.hvac.purchase.requirement</field>
+        <field name="arch" type="xml">
+            <form string="احتياج شراء المشروع" create="0" edit="0" delete="0" duplicate="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="project_id"/>
+                            <field name="boq_id"/>
+                            <field name="boq_line_id"/>
+                            <field name="sales_product_id" string="المنتج البيعي"/>
+                            <field name="boq_state" widget="badge"/>
+                        </group>
+                        <group>
+                            <field name="purchase_product_id" string="الصنف الشرائي"/>
+                            <field name="requirement_kind"/>
+                            <field name="quantity"/>
+                            <field name="uom_id"/>
+                            <field name="previous_requirement_id"/>
+                        </group>
+                    </group>
+                    <group string="المواصفة ومصدر الكمية">
+                        <field name="technical_specification"/>
+                        <field name="quantity_source"/>
+                        <field name="source_reference"/>
+                        <field name="measurement_id" invisible="quantity_source != 'measurement'"/>
+                        <field name="source_attachment_id"/>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_purchase_requirement_list" model="ir.ui.view">
+        <field name="name">sco.hvac.purchase.requirement.list</field>
+        <field name="model">sco.hvac.purchase.requirement</field>
+        <field name="arch" type="xml">
+            <list string="احتياجات الشراء" decoration-muted="boq_state in ('approved', 'superseded')">
+                <field name="project_id"/>
+                <field name="boq_id"/>
+                <field name="boq_line_id"/>
+                <field name="sales_product_id" string="المنتج البيعي"/>
+                <field name="purchase_product_id" string="الصنف الشرائي"/>
+                <field name="requirement_kind" string="النوع"/>
+                <field name="quantity" string="الكمية" sum="إجمالي الكمية"/>
+                <field name="uom_id" string="الوحدة"/>
+                <field name="technical_specification" string="المواصفة الفنية"/>
+                <field name="quantity_source" string="مصدر الكمية"/>
+                <field name="source_reference" string="مرجع المصدر"/>
+                <field name="boq_state" string="حالة BOQ" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_purchase_requirement_form" model="ir.ui.view">
+        <field name="name">sco.hvac.purchase.requirement.form</field>
+        <field name="model">sco.hvac.purchase.requirement</field>
+        <field name="arch" type="xml">
+            <form string="احتياج شراء">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="boq_line_id" readonly="boq_state != 'draft'"/>
+                            <field name="project_id" readonly="1"/>
+                            <field name="boq_id" readonly="1"/>
+                            <field name="sales_product_id" readonly="1" string="المنتج البيعي"/>
+                            <field name="boq_state" readonly="1" widget="badge"/>
+                        </group>
+                        <group>
+                            <field name="purchase_product_id" readonly="boq_state != 'draft'" string="الصنف الشرائي" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="requirement_kind" readonly="1"/>
+                            <field name="quantity" readonly="boq_state != 'draft'"/>
+                            <field name="uom_id" readonly="boq_state != 'draft'" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="previous_requirement_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="المواصفة ومصدر الكمية">
+                        <field name="technical_specification" readonly="boq_state != 'draft'"/>
+                        <field name="quantity_source" readonly="boq_state != 'draft'"/>
+                        <field name="source_reference" readonly="boq_state != 'draft'"/>
+                        <field name="measurement_id" readonly="boq_state != 'draft'" invisible="quantity_source != 'measurement'"/>
+                        <field name="source_attachment_id" readonly="boq_state != 'draft'"/>
+                        <field name="notes" readonly="boq_state != 'draft'"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_purchase_requirement" model="ir.actions.act_window">
+        <field name="name">احتياجات الشراء</field>
+        <field name="res_model">sco.hvac.purchase.requirement</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_purchase_requirement_search"/>
+        <field name="context">{'search_default_group_by_project': 1, 'search_default_group_by_purchase_product': 2, 'search_default_group_by_kind': 3, 'search_default_group_by_specification': 4, 'search_default_group_by_uom': 5}</field>
+    </record>
+
+    <record id="view_boq_form_purchase_requirements" model="ir.ui.view">
+        <field name="name">sco.hvac.boq.form.purchase.requirements</field>
+        <field name="model">sco.hvac.boq</field>
+        <field name="inherit_id" ref="sco_hvac_starter_boq.view_boq_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='line_ids']/form/sheet" position="inside">
+                <notebook groups="sales_team.group_sale_salesman,purchase.group_purchase_user,base.group_system">
+                    <page string="احتياجات الشراء">
+                        <field name="purchase_requirement_ids" readonly="parent.state != 'draft'">
+                            <list open_form_view="1">
+                                <field name="purchase_product_id" string="الصنف الشرائي" options="{'no_create': True, 'no_create_edit': True}"/>
+                                <field name="requirement_kind" string="النوع"/>
+                                <field name="quantity" string="الكمية"/>
+                                <field name="uom_id" string="الوحدة"/>
+                                <field name="technical_specification" string="المواصفة الفنية"/>
+                                <field name="quantity_source" string="مصدر الكمية"/>
+                                <field name="source_reference" string="مرجع المصدر"/>
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_project_form_purchase_requirements" model="ir.ui.view">
+        <field name="name">project.project.form.purchase.requirements</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" type="object" name="action_open_purchase_requirements" icon="fa-shopping-basket" groups="sales_team.group_sale_salesman,purchase.group_purchase_user,base.group_system">
+                    <field name="purchase_requirement_count" widget="statinfo" string="احتياجات الشراء"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <menuitem id="menu_purchase_requirement" name="احتياجات الشراء" parent="menu_component_bridge_root" action="action_purchase_requirement" sequence="20" groups="sales_team.group_sale_salesman,purchase.group_purchase_user,base.group_system"/>
+</odoo>

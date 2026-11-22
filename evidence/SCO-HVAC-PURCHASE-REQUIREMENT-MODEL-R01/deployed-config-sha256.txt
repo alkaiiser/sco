@@ -1,0 +1,1 @@
+5c797801b9b6b9a7f612e3609e87c9107009a4a1c779ef417579292f363b4a28  /etc/sco-odoo-hvac-starter.conf

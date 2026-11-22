@@ -1,0 +1,57 @@
+2026-11-22 11:27:08,603 1938625 INFO ? odoo: Odoo version 19.0
+2026-11-22 11:27:08,603 1938625 INFO ? odoo: Using configuration file at /etc/sco-odoo-hvac-starter.conf
+2026-11-22 11:27:08,603 1938625 INFO ? odoo: addons paths: _NamespacePath(['/srv/sco-odoo-live/odoo/odoo/addons', '/srv/sco-hvac-tier-data/addons/19.0', '/srv/sco-hvac-tier-source/releases/starter-commercial-r31-purchase-requirement-r01-20261122', '/srv/sco-odoo-live/odoo/addons'])
+2026-11-22 11:27:08,603 1938625 INFO ? odoo: database: sco_odoo19@default:default
+2026-11-22 11:27:08,938 1938625 INFO ? odoo.service.server: HTTP service (werkzeug) running on localhost:18091
+2026-11-22 11:27:08,943 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.tests.common: Importing test framework
+2026-11-22 11:27:08,983 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.modules.loading: loading 1 modules...
+2026-11-22 11:27:08,989 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.modules.loading: 1 modules loaded in 0.01s, 0 queries (+0 extra)
+2026-11-22 11:27:09,027 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.modules.loading: updating modules list
+2026-11-22 11:27:09,039 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.base.models.ir_module: ALLOW access to module.update_list on [] to user __system__ #1 via n/a
+2026-11-22 11:27:10,326 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.base.models.ir_module: ALLOW access to module.button_upgrade on ['SCO HVAC Starter Component Bridge'] to user __system__ #1 via n/a
+2026-11-22 11:27:10,326 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.base.models.ir_module: ALLOW access to module.update_list on ['SCO HVAC Starter Component Bridge'] to user __system__ #1 via n/a
+2026-11-22 11:27:11,470 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.base.models.ir_module: ALLOW access to module.button_install on [] to user __system__ #1 via n/a
+2026-11-22 11:27:11,526 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.modules.loading: loading 179 modules...
+2026-11-22 11:27:12,713 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.modules.loading: Loading module sco_hvac_starter_component_bridge (177/179)
+2026-11-22 11:27:13,102 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.registry: module sco_hvac_starter_component_bridge: creating or updating database tables
+2026-11-22 11:27:13,343 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.modules.loading: loading sco_hvac_starter_component_bridge/security/purchase_requirement_security.xml
+2026-11-22 11:27:13,357 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.modules.loading: loading sco_hvac_starter_component_bridge/security/ir.model.access.csv
+2026-11-22 11:27:14,191 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.modules.loading: loading sco_hvac_starter_component_bridge/views/component_bridge_views.xml
+2026-11-22 11:27:14,407 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.modules.loading: loading sco_hvac_starter_component_bridge/views/purchase_requirement_views.xml
+2026-11-22 11:27:14,551 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.base.models.ir_module: module sco_hvac_starter_component_bridge: no translation for language ar_001
+2026-11-22 11:27:14,552 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.base.models.ir_module: module sco_hvac_starter_component_bridge: no translation for language bn_IN
+2026-11-22 11:27:14,555 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.base.models.ir_module: module sco_hvac_starter_component_bridge: no translation for language hi_IN
+2026-11-22 11:27:14,556 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.base.models.ir_module: module sco_hvac_starter_component_bridge: no translation for language tl_PH
+2026-11-22 11:27:14,647 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.sco_hvac_starter_component_bridge.tests.test_component_bridge: Starting TestStarterComponentBridge.test_bridge_models_and_requirement_traceability_fields_exist ...
+2026-11-22 11:27:14,652 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.sco_hvac_starter_component_bridge.tests.test_component_bridge: Starting TestStarterComponentBridge.test_purchase_is_not_created_by_requirement_generation ...
+2026-11-22 11:27:14,992 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.base.models.ir_attachment: filestore gc 0 checked, 0 removed
+2026-11-22 11:27:15,406 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.sco_hvac_starter_component_bridge.tests.test_purchase_requirement: Starting TestPurchaseRequirement.test_acceptance_full_kit_copper_and_ready_duct_are_internal_only ...
+2026-11-22 11:27:15,754 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.sco_hvac_starter_component_bridge.tests.test_purchase_requirement: Starting TestPurchaseRequirement.test_approved_requirements_reject_create_write_and_unlink ...
+2026-11-22 11:27:15,949 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.sco_hvac_starter_component_bridge.tests.test_purchase_requirement: Starting TestPurchaseRequirement.test_boq_revision_copies_requirements_and_preserves_predecessor ...
+2026-11-22 11:27:16,152 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.sco_hvac_starter_component_bridge.tests.test_purchase_requirement: Starting TestPurchaseRequirement.test_cloned_catalog_copper_and_duct_identities_are_usable ...
+2026-11-22 11:27:16,209 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.sco_hvac_starter_component_bridge.tests.test_purchase_requirement: Starting TestPurchaseRequirement.test_company_rule_isolates_requirements ...
+2026-11-22 11:27:17,184 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.sco_hvac_starter_component_bridge.tests.test_purchase_requirement: Starting TestPurchaseRequirement.test_measurement_source_must_be_approved_and_match_project_company ...
+2026-11-22 11:27:17,309 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.sco_hvac_starter_component_bridge.tests.test_purchase_requirement: Starting TestPurchaseRequirement.test_model_fields_and_multiple_requirements_per_boq_line ...
+2026-11-22 11:27:17,349 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.sco_hvac_starter_component_bridge.tests.test_purchase_requirement: Starting TestPurchaseRequirement.test_project_aggregation_action_keeps_original_boq_sources ...
+2026-11-22 11:27:17,404 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.sco_hvac_starter_component_bridge.tests.test_purchase_requirement: Starting TestPurchaseRequirement.test_requirement_classifies_material_and_purchased_service ...
+2026-11-22 11:27:17,445 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.sco_hvac_starter_component_bridge.tests.test_purchase_requirement: Starting TestPurchaseRequirement.test_requirement_rejects_invalid_identity_quantity_and_uom ...
+2026-11-22 11:27:17,545 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.sco_hvac_starter_component_bridge.tests.test_purchase_requirement: Starting TestPurchaseRequirement.test_revision_lineage_cannot_be_forged_or_moved ...
+2026-11-22 11:27:17,598 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.sco_hvac_starter_component_bridge.tests.test_purchase_requirement: Starting TestPurchaseRequirement.test_security_and_internal_views ...
+2026-11-22 11:27:18,396 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.models.unlink: User #2380 deleted sco.hvac.purchase.requirement records with IDs: [99]
+2026-11-22 11:27:18,415 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.base.models.ir_model: Access Denied by ACLs for operation: write, uid: 2381, model: sco.hvac.purchase.requirement
+2026-11-22 11:27:18,422 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.base.models.ir_model: Access Denied by ACLs for operation: read, uid: 2382, model: sco.hvac.purchase.requirement
+2026-11-22 11:27:18,428 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.base.models.ir_model: Access Denied by ACLs for operation: read, uid: 2383, model: sco.hvac.purchase.requirement
+2026-11-22 11:27:18,766 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.addons.base.models.ir_attachment: filestore gc 6 checked, 6 removed
+2026-11-22 11:27:18,775 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.modules.loading: Module sco_hvac_starter_component_bridge loaded in 6.06s (incl. 4.14s test), 496 queries (+2734 test, +496 other)
+2026-11-22 11:27:18,786 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.modules.loading: 179 modules loaded in 7.26s, 496 queries (+3230 extra)
+2026-11-22 11:27:19,524 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.registry: verifying fields for every extended model
+2026-11-22 11:27:20,454 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.modules.loading: Modules loaded.
+2026-11-22 11:27:20,484 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.registry: Registry changed, signaling through the database
+2026-11-22 11:27:20,485 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.registry: Registry loaded in 11.547s
+2026-11-22 11:27:20,485 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.service.server: Starting post tests
+2026-11-22 11:27:20,486 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.service.server: 0 post-tests in 0.00s, 0 queries
+2026-11-22 11:27:20,486 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.tests.stats: sco_hvac_starter_component_bridge: 18 tests 4.13s 2734 queries
+2026-11-22 11:27:20,486 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.tests.result: 0 failed, 0 error(s) of 14 tests when loading database 'sco_hvac_purchase_requirement_r01_test_20261122'
+2026-11-22 11:27:20,486 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.service.server: Initiating shutdown
+2026-11-22 11:27:20,486 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown.
+2026-11-22 11:27:20,502 1938625 INFO sco_hvac_purchase_requirement_r01_test_20261122 odoo.sql_db: ConnectionPool(read/write;used=0/count=0/max=64): Closed 2 connections
